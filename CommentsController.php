@@ -36,15 +36,14 @@ class CommentsController extends Controller
   
   public function searchComments(Request $request): array
     {
-		$commentRecords = Comments::select("*")
-            ->when($f = request('search_text'), function ($query) use ($f) {
-                $query->where(function ($query) use ($f) {
-                    $query->where('name', 'like', '%' . $f . '%')
-                        ->orWhere('email', 'like', '%' . $f . '%')
-                        ->orWhere('body', 'like', '%' . $f . '%');
-                });
-            })
-            ->get();
+	$commentRecords = Comments::select("*")
+				    ->when($f = request('search_text'), function ($query) use ($f) {
+					$query->where(function ($query) use ($f) {
+					    $query->where('name', 'like', '%' . $f . '%')
+						->orWhere('email', 'like', '%' . $f . '%')
+						->orWhere('body', 'like', '%' . $f . '%');
+					});
+				    })->get();
 
         return [
             'comments' => CommentResource::collection($commentRecords),
