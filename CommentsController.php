@@ -17,7 +17,7 @@ class CommentsController extends Controller
   //Question 1
   //Return a list of Top Posts ordered by their number of Comments.
   
-	public function listPosts(): array
+  public function listPosts(): array
     {
 		$posts = Posts::join('comments', 'comments.postId', 'posts.id')
 				->select([
@@ -50,10 +50,5 @@ class CommentsController extends Controller
             'comments' => CommentResource::collection($commentRecords),
         ];
     }
-
-}
-
-
-  
 
 }
